@@ -2,7 +2,7 @@ import * as esbuild from 'esbuild'
 import * as fs from 'fs'
 
 // Change this to whatever the mod should be called, without the extension.
-const MOD_NAME = "test"
+const MOD_NAME = "multiprompt"
 
 // Change this to something else if you want to make it go somewhere that it
 // normally wouldn't
@@ -15,6 +15,7 @@ await esbuild.build({
     platform: "browser",
     logLevel: "error",
     bundle: true,
+    // dropLabels: ["dbg_assert"],
 
     loader: {
         // Force .html, .svg, and .css to load as text
