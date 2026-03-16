@@ -9,7 +9,7 @@ runAfterLoad(async () => {
         {
             a: new TextInput("A", ""),
             b: new NumberInput("B", 2763),
-            t: new ToggleInput("Toggle", false)
+            t: new ToggleInput("Toggle", false, { true_text: "Y", false_text: "N" })
         }
     )
 

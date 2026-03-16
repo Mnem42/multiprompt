@@ -1,4 +1,8 @@
 /* eslint-disable no-unused-labels */
+
+import { IsPartial } from "./util"
+
+
 export abstract class Input<T> {
     readonly label: string
     _value: T
@@ -11,6 +15,24 @@ export abstract class Input<T> {
 
     public is_valid(): boolean { return true }
     public set value(v: T) { this._value = v }
+}
+
+export abstract class InputWithArgs<T, A> extends Input<T> {
+    readonly args: A
+
+    constructor(label: string, default_v: T, args: A) {
+        super(label, default_v)
+        this.args = args
+    }
+}
+
+export abstract class InputOptArgs<T, A extends (IsPartial<A> extends true ? object : never)> extends Input<T> {
+    readonly args: A
+
+    constructor(label: string, default_v: T, args: A) {
+        super(label, default_v)
+        this.args = args
+    }
 }
 
 export class Prompt<I extends Record<string, Input<unknown>>> {

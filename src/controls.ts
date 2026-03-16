@@ -1,4 +1,4 @@
-import { Input } from "./core"
+import { Input, InputOptArgs } from "./core"
 
 export class TextInput extends Input<string> {
     input_elem: HTMLInputElement | null = null
@@ -6,7 +6,7 @@ export class TextInput extends Input<string> {
     public build(): HTMLElement {
         this.input_elem = document.createElement("input")
         this.input_elem.value = this._value
-        
+
         this.input_elem.style.flex = "2"
         this.input_elem.classList.add("mp_input")
         
@@ -51,12 +51,20 @@ export class NumberInput extends Input<number> {
     }
 }
 
-export class ToggleInput extends Input<boolean> {
+type ToggleInputArgs = {
+    true_text?: string,
+    false_text?: string
+}
+
+export class ToggleInput extends InputOptArgs<boolean, ToggleInputArgs> {
     button: HTMLButtonElement | null = null
 
     public build(): HTMLElement {
+        const true_text = this.args.true_text ?? "YES"
+        const false_text = this.args.false_text ?? "NO"
+
         const button = document.createElement("button")
-        button.innerText = this._value ? "YES" : "NO"
+        button.innerText = this._value ? true_text : false_text
         button.dataset.enabled = this._value.toString()
 
         button.style.flex = "2"
@@ -64,7 +72,7 @@ export class ToggleInput extends Input<boolean> {
         button.onclick = () => {
             this._value = !this._value;
             button.dataset.enabled = this._value.toString()
-            button.innerText = this._value ? "YES" : "NO"
+            button.innerText = this._value ? true_text : false_text
         }
         
         this.button = button
@@ -75,4 +83,3 @@ export class ToggleInput extends Input<boolean> {
         return this.button?.validity.valid ?? false
     }
 }
-
