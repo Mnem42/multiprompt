@@ -1,4 +1,4 @@
-import { NumberInput, TextInput, ToggleInput } from "./controls"
+import { NumberInput, SelectInput, TextInput, ToggleInput } from "./controls"
 import { UI } from "./ui"
 
 runAfterLoad(async () => {
@@ -9,7 +9,12 @@ runAfterLoad(async () => {
         {
             a: new TextInput("A", ""),
             b: new NumberInput("B", 2763),
-            t: new ToggleInput("Toggle", false, { true_text: "Y", false_text: "N" })
+            t: new ToggleInput("Toggle", false, { true_text: "Y", false_text: "N" }),
+            s: new SelectInput("Select", 12, new Map([
+                ["A", 12],
+                ["B", 42],
+                ["C", 2763]
+            ]))
         }
     )
 

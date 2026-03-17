@@ -1,4 +1,4 @@
-import { Input, InputOptArgs } from "./core"
+import { Input, InputArgs, InputOptArgs } from "./core"
 
 export class TextInput extends Input<string> {
     input_elem: HTMLInputElement | null = null
@@ -81,5 +81,31 @@ export class ToggleInput extends InputOptArgs<boolean, ToggleInputArgs> {
 
     public is_valid(): boolean {
         return this.button?.validity.valid ?? false
+    }
+}
+
+export class SelectInput<T> extends InputArgs<T, Map<string, T>> {
+    public build() {
+        const container = document.createElement("div")
+        container.classList.add("mp_select_set")
+
+        for (const [k, v] of this.args.entries()) {
+            const elem = document.createElement("span")
+            elem.innerText = k
+
+            elem.onclick = () => {
+                this._value = v
+
+                for (const x of container.children) {
+                    (x as HTMLElement).dataset.selected = "false"
+                }
+
+                elem.dataset.selected = "true"
+            }
+
+            container.append(elem)
+        }
+
+        return container
     }
 }

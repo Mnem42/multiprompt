@@ -2,7 +2,6 @@
 
 import { IsPartial } from "./util"
 
-
 export abstract class Input<T> {
     readonly label: string
     _value: T
@@ -14,10 +13,12 @@ export abstract class Input<T> {
     public abstract build(): HTMLElement
 
     public is_valid(): boolean { return true }
+
     public set value(v: T) { this._value = v }
+    public get value() { return this._value }
 }
 
-export abstract class InputWithArgs<T, A> extends Input<T> {
+export abstract class InputArgs<T, A> extends Input<T> {
     readonly args: A
 
     constructor(label: string, default_v: T, args: A) {
