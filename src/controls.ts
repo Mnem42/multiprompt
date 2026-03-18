@@ -156,6 +156,8 @@ export class HorizontalRule extends NonInputControl<void> {
     }
     
     build(): HTMLElement {
-        return document.createElement("hr")   
+        const elem = document.createElement("hr")
+        elem.classList.add("mp_hr")
+        return elem
     }
 }
