@@ -47,8 +47,8 @@ export abstract class NonInputControl<A> {
     public abstract build(): HTMLElement
 }
 
-export class Prompt<K extends PropertyKey, I extends Control<K>[]> {
-    controls: I
+export class Prompt<K extends PropertyKey> {
+    controls: Control<K>[]
     inputs: Map<K, Input<unknown>>
     container: HTMLElement
     title: string
@@ -58,7 +58,7 @@ export class Prompt<K extends PropertyKey, I extends Control<K>[]> {
     confirm_btn:   HTMLElement | null = null
     close_btn:     HTMLElement | null = null
 
-    constructor(title: string, controls: I, container: HTMLElement) {
+    constructor(title: string, controls: Control<K>[], container: HTMLElement) {
         this.title = title
         this.controls = controls
         this.container = container

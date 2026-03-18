@@ -47,7 +47,7 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
         return this
     }
 
-    build(): Prompt<K, Control<K>[]> {
+    build(): Prompt<K> {
         return new Prompt(this.title, this.inputs, this.container)
     }
 }
