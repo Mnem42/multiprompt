@@ -18,16 +18,6 @@ export abstract class Input<T> {
     public get value() { return this._value }
 }
 
-export abstract class NonInputControl<A> {
-    readonly args: A
-
-    constructor(args: A) {
-        this.args = args
-    }
-
-    public abstract build(): HTMLElement
-}
-
 export abstract class InputArgs<T, A> extends Input<T> {
     readonly args: A
 
@@ -44,6 +34,16 @@ export abstract class InputOptArgs<T, A extends (IsPartial<A> extends true ? obj
         super(label, default_v)
         this.args = args
     }
+}
+
+export abstract class NonInputControl<A> {
+    readonly args: A
+
+    constructor(args: A) {
+        this.args = args
+    }
+
+    public abstract build(): HTMLElement
 }
 
 export class Prompt<I extends Record<string, Input<unknown>>> {
