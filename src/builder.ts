@@ -1,12 +1,11 @@
-import { HorizontalRule, NumberInput, SelectInput, TextInput } from "./controls";
-import { Input, NonInputControl, Prompt } from "./core";
+import { Control, HorizontalRule, NumberInput, SelectInput, TextInput } from "./controls";
+import { Input, Prompt } from "./core";
 
-type Control = [PropertyKey, Input<unknown>] | NonInputControl<unknown>
 
-export class PromptBuilder<K = void> {
+export class PromptBuilder<K extends PropertyKey | never = never> {
     readonly title: string
     readonly container: HTMLElement
-    inputs: Control[]
+    inputs: Control<K>[]
 
     constructor(title: string, container: HTMLElement) {
         this.title = title
@@ -17,30 +16,30 @@ export class PromptBuilder<K = void> {
     text_input<NK extends PropertyKey>(key: NK, label: string, default_v: string):
         PromptBuilder<K | NK>
     {
-        this.inputs.push([key, new TextInput(label, default_v)])
-        return this
+        return this.add_input(key, new TextInput(label, default_v))
     }
 
     numeric_input<NK extends PropertyKey>(key: NK, label: string, default_v: number):
         PromptBuilder<K | NK>
     {
-        this.inputs.push([key, new NumberInput(label, default_v)])
-        return this
+        return this.add_input(
+            key,
+            new NumberInput(label, default_v)
+        )
     }
 
     select_input<T, NK extends PropertyKey>(key: NK, label: string, default_v_index: string, values: Map<string, T>):
         PromptBuilder<K | NK>
     {
-        this.inputs.push([
+        return this.add_input(
             key, 
             new SelectInput(label, values.get(default_v_index), values)
-        ])
-        return this
+        )
     }
 
-    add_input(k: string, input: Input<unknown>): PromptBuilder<K> {
-        this.inputs.push([k, input])
-        return this
+    add_input<NK extends PropertyKey>(k: NK, input: Input<unknown>): PromptBuilder<K | NK> {
+        this.inputs.push([k as unknown as K, input])
+        return this as PromptBuilder<K | NK>
     }
 
     hr(): PromptBuilder<K> {
@@ -48,22 +47,7 @@ export class PromptBuilder<K = void> {
         return this
     }
 
-    build() {
-        return new Prompt(this.title, Object.fromEntries(this.inputs), this.container)
+    build(): Prompt<K, Control<K>[]> {
+        return new Prompt(this.title, this.inputs, this.container)
     }
 }
-
-const test = new PromptBuilder("Thing", document.createElement("div"))
-    .text_input("a", "A", "test")
-    .numeric_input("b", "B", 2763)
-    .hr()
-    .select_input(
-        "c",
-        "Select", 
-        "C", 
-        new Map([
-            ["A", 12],
-            ["B", 42],
-            ["C", 2763]
-        ]
-    ))

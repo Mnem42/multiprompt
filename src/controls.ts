@@ -1,5 +1,7 @@
 import { Input, InputArgs, InputOptArgs, NonInputControl } from "./core"
 
+export type Control<K> = [K, Input<unknown>] | NonInputControl<unknown>
+
 export class TextInput extends Input<string> {
     input_elem: HTMLInputElement | null = null
 

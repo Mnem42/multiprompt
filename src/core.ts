@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-labels */
 
+import { Control } from "./controls"
 import { IsPartial } from "./util"
 
 export abstract class Input<T> {
@@ -46,8 +47,9 @@ export abstract class NonInputControl<A> {
     public abstract build(): HTMLElement
 }
 
-export class Prompt<I extends Record<string, Input<unknown>>> {
-    inputs: I
+export class Prompt<K extends PropertyKey, I extends Control<K>[]> {
+    controls: I
+    inputs: Map<K, Input<unknown>>
     container: HTMLElement
     title: string
     built: boolean = false
@@ -56,10 +58,11 @@ export class Prompt<I extends Record<string, Input<unknown>>> {
     confirm_btn:   HTMLElement | null = null
     close_btn:     HTMLElement | null = null
 
-    constructor(title: string, inputs: I, container: HTMLElement) {
+    constructor(title: string, controls: I, container: HTMLElement) {
         this.title = title
-        this.inputs = inputs
+        this.controls = controls
         this.container = container
+        this.inputs = new Map(controls.filter(x => Array.isArray(x)))
     }
 
     public build(): HTMLElement {
@@ -80,11 +83,18 @@ export class Prompt<I extends Record<string, Input<unknown>>> {
         this.close_btn = this.prompt_parent.querySelector(".XButton") as HTMLElement
         const input_container = this.prompt_parent.querySelector(".menuText") as HTMLElement
 
-        for (const input of Object.values(this.inputs)) {
-            const label = document.createElement("div")
-            label.innerText = input.label
+        for (const control of Object.values(this.controls)) {
+            if (Array.isArray(control)) {
+                const input = control[1]
 
-            input_container.append(label, input.build())
+                const label = document.createElement("div")
+                label.innerText = input.label
+
+                input_container.append(label, input.build())
+            }
+            else {
+                input_container.append(control.build())
+            }
         }
 
         this.built = true
@@ -93,7 +103,7 @@ export class Prompt<I extends Record<string, Input<unknown>>> {
         return this.prompt_parent
     }
 
-    public async get(): Promise<I> {
+    public async get(): Promise<typeof this.inputs> {
         if (!this.built) {
             this.build()
         }
@@ -102,7 +112,7 @@ export class Prompt<I extends Record<string, Input<unknown>>> {
 
         this.prompt_parent.style.display = "block"
 
-        return new Promise<I>((resolve, reject) => {
+        return new Promise<typeof this.inputs>((resolve, reject) => {
             dbg_assert: if (
                 this.confirm_btn === null ||
                 this.close_btn === null ||
