@@ -1,0 +1,111 @@
+/* General UI */
+
+:root {
+    --mp-enabled: #0F0;
+    --mp-focused: #0A0;
+    --mp-disabled: #F00;
+    --mp-invalid: #A00;
+}
+
+.mp_prompt_inputs {
+    padding-top: 0.25em;
+    margin: 0.75em;
+
+    display: grid;
+    grid-template-columns: auto auto;
+
+    * {
+        align-self: center;
+    }
+}
+
+.mp_screen {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    
+    padding: 0;
+
+    .XButton {
+        float: unset;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+    .menuTitle {
+        margin: 0;
+    }
+
+    .promptOK {
+        width: 100%;
+        height: 3.5em;
+    }
+}
+
+/* Controls */
+
+.mp_toggle {
+    text-align: center;
+    background: var(--theme-darker);
+    border: 2px solid var(--theme-dark);
+    height: 2em;
+}
+
+.mp_toggle[data-enabled="true"]  { color: var(--mp-enabled) }
+.mp_toggle[data-enabled="false"] { color: var(--mp-disabled) }
+
+.mp_input {
+    font-family: inherit;
+    background: var(--theme-darker);
+    border: 2px solid var(--theme-dark);
+    height: 2em;
+    padding-left: 0.5em;
+    min-width: 0;
+}
+
+.mp_input:focus {
+    outline: none;
+    border-color: var(--mp-focused);
+}
+
+.mp_input:invalid {
+    border-color: var(--mp-invalid);
+}
+
+.mp_confirm {
+	position:absolute;
+	cursor: pointer;
+    left: 0;
+    bottom: 0;
+    height: 3em;
+    line-height: 3em;
+    text-align: center;
+	vertical-align: middle;
+    background-color: var(--theme-darkest2);
+	border-top: 4px solid var(--theme);
+	z-index: 30;
+}
+
+.mp_select_set {
+    display: flex;
+
+    * {
+        flex: 1;
+        text-align: center;
+        align-content: center;
+        background: var(--theme-darker);
+        border: 2px solid var(--theme-dark);
+        height: 2em;
+    }
+
+    *[data-selected=true] {
+        color: var(--mp-enabled)
+    }
+}
+
+.mp_hr {
+    grid-column: 1 / 3;
+    border: 2px solid var(--theme-opac25);
+    width: 100%;
+}
