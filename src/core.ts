@@ -18,6 +18,16 @@ export abstract class Input<T> {
     public get value() { return this._value }
 }
 
+export abstract class NonInputControl<A> {
+    readonly args: A
+
+    constructor(args: A) {
+        this.args = args
+    }
+
+    public abstract build(): HTMLElement
+}
+
 export abstract class InputArgs<T, A> extends Input<T> {
     readonly args: A
 

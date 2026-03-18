@@ -1,4 +1,4 @@
-import { NumberInput, SelectInput, TextInput, ToggleInput } from "./controls"
+import { DirInput, HorizontalRule, NumberInput, SelectInput, TextInput, ToggleInput } from "./controls"
 import { UI } from "./ui"
 
 runAfterLoad(async () => {
@@ -10,11 +10,13 @@ runAfterLoad(async () => {
             a: new TextInput("A", ""),
             b: new NumberInput("B", 2763),
             t: new ToggleInput("Toggle", false, { true_text: "Y", false_text: "N" }),
-            s: new SelectInput("Select", 12, new Map([
+            hr: new HorizontalRule(),
+            s: new SelectInput("Select", 15, new Map([
                 ["A", 12],
                 ["B", 42],
                 ["C", 2763]
-            ]))
+            ])),
+            dir: new DirInput("Direction", "left")
         }
     )
 

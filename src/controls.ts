@@ -1,4 +1,4 @@
-import { Input, InputArgs, InputOptArgs } from "./core"
+import { Input, InputArgs, InputOptArgs, NonInputControl } from "./core"
 
 export class TextInput extends Input<string> {
     input_elem: HTMLInputElement | null = null
@@ -86,12 +86,25 @@ export class ToggleInput extends InputOptArgs<boolean, ToggleInputArgs> {
 
 export class SelectInput<T> extends InputArgs<T, Map<string, T>> {
     public build() {
+        if (!this.args.values().find(x => x == this._value)) {
+            console.warn(
+                "The default value provided is not selectable by the user. " +
+                "You really shouldn't do that, since it's kinda shit for UX.",
+                "\ndefault:", this._value,
+                "\noption map:", this.args
+            )
+        }
+
         const container = document.createElement("div")
         container.classList.add("mp_select_set")
 
         for (const [k, v] of this.args.entries()) {
             const elem = document.createElement("span")
             elem.innerText = k
+
+            if (this._value == v) {
+                elem.dataset.selected = "true"
+            }
 
             elem.onclick = () => {
                 this._value = v
@@ -107,5 +120,40 @@ export class SelectInput<T> extends InputArgs<T, Map<string, T>> {
         }
 
         return container
+    }
+}
+
+type Direction = "up" | "down" | "left" | "right"
+
+export class DirInput extends Input<Direction> {
+    readonly inner: SelectInput<Direction>
+
+    constructor(label: string, default_v: Direction) {
+        super(label, default_v)
+
+        this.inner = new SelectInput(
+            label,
+            default_v,
+            new Map([
+                ["↑", "up"],
+                ["↓", "down"],
+                ["←", "left"],
+                ["→", "right"]
+            ])
+        )
+    }
+
+    public build(): HTMLElement {
+        return this.inner.build()
+    }
+}
+
+export class HorizontalRule extends NonInputControl<void> {
+    constructor() {
+        super()
+    }
+    
+    build(): HTMLElement {
+        return document.createElement("hr")   
     }
 }
