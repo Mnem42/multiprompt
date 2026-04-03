@@ -1,4 +1,4 @@
-import { Control, HorizontalRule, NumberInput, SelectInput, TextInput } from "./controls";
+import { Control, HorizontalRule, NumberInput, TextInput } from "./controls";
 import { Input, Prompt } from "./core";
 
 
@@ -25,15 +25,6 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
         return this.add_input(
             key,
             new NumberInput(label, default_v)
-        )
-    }
-
-    select_input<T, NK extends PropertyKey>(key: NK, label: string, default_v_index: string, values: Map<string, T>):
-        PromptBuilder<K | NK>
-    {
-        return this.add_input(
-            key, 
-            new SelectInput(label, values.get(default_v_index), values)
         )
     }
 

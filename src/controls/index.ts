@@ -1,4 +1,5 @@
-import { Input, InputArgs, InputOptArgs, NonInputControl } from "./core"
+import { Input, InputOptArgs, NonInputControl } from "../core"
+export * from "./select"
 
 export type Control<K> = [K, Input<unknown>] | NonInputControl<unknown>
 
@@ -86,69 +87,30 @@ export class ToggleInput extends InputOptArgs<boolean, ToggleInputArgs> {
     }
 }
 
-export class SelectInput<T> extends InputArgs<T, Map<string, T>> {
-    public build() {
-        if (!this.args.values().find(x => x == this._value)) {
-            console.warn(
-                "The default value provided is not selectable by the user. " +
-                "You really shouldn't do that, since it's kinda shit for UX.",
-                "\ndefault:", this._value,
-                "\noption map:", this.args
-            )
-        }
+// type Direction = "up" | "down" | "left" | "right"
 
-        const container = document.createElement("div")
-        container.classList.add("mp_select_set")
+// export class DirInput extends Input<Direction> {
+//     readonly inner: SelectInput<Direction>
 
-        for (const [k, v] of this.args.entries()) {
-            const elem = document.createElement("span")
-            elem.innerText = k
+//     constructor(label: string, default_v: Direction) {
+//         super(label, default_v)
 
-            if (this._value == v) {
-                elem.dataset.selected = "true"
-            }
+//         this.inner = new SelectInput(
+//             label,
+//             default_v,
+//             new Map([
+//                 ["↑", "up"],
+//                 ["↓", "down"],
+//                 ["←", "left"],
+//                 ["→", "right"]
+//             ])
+//         )
+//     }
 
-            elem.onclick = () => {
-                this._value = v
-
-                for (const x of container.children) {
-                    (x as HTMLElement).dataset.selected = "false"
-                }
-
-                elem.dataset.selected = "true"
-            }
-
-            container.append(elem)
-        }
-
-        return container
-    }
-}
-
-type Direction = "up" | "down" | "left" | "right"
-
-export class DirInput extends Input<Direction> {
-    readonly inner: SelectInput<Direction>
-
-    constructor(label: string, default_v: Direction) {
-        super(label, default_v)
-
-        this.inner = new SelectInput(
-            label,
-            default_v,
-            new Map([
-                ["↑", "up"],
-                ["↓", "down"],
-                ["←", "left"],
-                ["→", "right"]
-            ])
-        )
-    }
-
-    public build(): HTMLElement {
-        return this.inner.build()
-    }
-}
+//     public build(): HTMLElement {
+//         return this.inner.build()
+//     }
+// }
 
 export class HorizontalRule extends NonInputControl<void> {
     constructor() {
