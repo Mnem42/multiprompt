@@ -87,31 +87,6 @@ export class ToggleInput extends InputOptArgs<boolean, ToggleInputArgs> {
     }
 }
 
-// type Direction = "up" | "down" | "left" | "right"
-
-// export class DirInput extends Input<Direction> {
-//     readonly inner: SelectInput<Direction>
-
-//     constructor(label: string, default_v: Direction) {
-//         super(label, default_v)
-
-//         this.inner = new SelectInput(
-//             label,
-//             default_v,
-//             new Map([
-//                 ["↑", "up"],
-//                 ["↓", "down"],
-//                 ["←", "left"],
-//                 ["→", "right"]
-//             ])
-//         )
-//     }
-
-//     public build(): HTMLElement {
-//         return this.inner.build()
-//     }
-// }
-
 export class HorizontalRule extends NonInputControl<void> {
     constructor() {
         super()
