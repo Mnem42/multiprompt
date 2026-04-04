@@ -4,21 +4,28 @@ import { Control } from "./controls"
 import { IsPartial } from "./util"
 
 export abstract class Input<T> {
+    /** The label displayed next to the input */
     readonly label: string
+
+    /** The intenral value */
     _value: T
 
     constructor(label: string, default_v: T) {
         this.label = label
         this._value = default_v
     }
+
+    /** The function that creates the HTML for an input */
     public abstract build(): HTMLElement
 
+    /** Whether an input's current value is valid or not */
     public is_valid(): boolean { return true }
 
     public set value(v: T) { this._value = v }
     public get value() { return this._value }
 }
 
+/** An {@link Input} with arguments */
 export abstract class InputArgs<T, A> extends Input<T> {
     readonly args: A
 
@@ -28,6 +35,7 @@ export abstract class InputArgs<T, A> extends Input<T> {
     }
 }
 
+/** An {@link Input} with arguments which are an object with *only* optional values */
 export abstract class InputOptArgs<T, A extends (IsPartial<A> extends true ? object : never)> extends Input<T> {
     readonly args: A
 
