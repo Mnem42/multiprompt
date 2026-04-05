@@ -47,7 +47,7 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
      * @param label The visual label for the input
      * @param default_v The default value for the input
      */
-    text_input<NK extends PropertyKey>(key: NK, label: string, default_v: string):
+    text_input<NK extends PropertyKey>(key: NK, label: string, default_v: string = ""):
         PromptBuilder<K | NK>
     {
         return this.add_input(key, new TextInput(label, default_v))
@@ -60,7 +60,7 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
      * @param label The visual label for the input
      * @param default_v The default value for the input
      */
-    numeric_input<NK extends PropertyKey>(key: NK, label: string, default_v: number):
+    numeric_input<NK extends PropertyKey>(key: NK, label: string, default_v: number = 0):
         PromptBuilder<K | NK>
     {
         return this.add_input(
