@@ -109,3 +109,7 @@
     border: 2px solid var(--theme-opac25);
     width: 100%;
 }
+
+.mp_header {
+    grid-column: 1 / 3;
+}

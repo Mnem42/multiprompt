@@ -16,6 +16,7 @@ runAfterLoad(async () => {
         .text_input("a", "A", "test")
         .numeric_input("b", "B", 2763)
         .hr()
+        .header("Header")
         .add_input("selection", selector)
         .add_input("direction", dir_input("dir"))
         .dir_input("direction2", "Direction B")

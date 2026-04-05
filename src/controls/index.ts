@@ -98,3 +98,20 @@ export class HorizontalRule extends Control<void> {
         return elem
     }
 }
+
+export class Header extends Control<string> {
+    size: number
+
+    constructor(text: string, size: number) {
+        super(text)
+        this.size = size
+    }
+
+    build(): HTMLElement {
+        const elem = document.createElement("h2")
+        elem.innerText = this.args
+        elem.style.fontSize = `${this.size}em`
+        elem.classList.add("mp_header")
+        return elem
+    }
+}

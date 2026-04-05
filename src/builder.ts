@@ -1,4 +1,4 @@
-import {ControlOrInput, dir_input, HorizontalRule, NumberInput, TextInput} from "./controls";
+import {ControlOrInput, dir_input, Header, HorizontalRule, NumberInput, TextInput} from "./controls";
 import { Input, Prompt } from "./core";
 
 /**
@@ -87,6 +87,11 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
     /** Inserts a horizontal rule. */
     hr(): PromptBuilder<K> {
         this.controls.push(new HorizontalRule)
+        return this
+    }
+
+    header(text: string, size: number = 1.5): PromptBuilder<K> {
+        this.controls.push(new Header(text, size))
         return this
     }
 
