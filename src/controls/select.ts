@@ -16,7 +16,7 @@ type SelectArgs<K, T> = [K, T, SelectOptions][]
  * {@link SelectBuilder}
  */
 export class SelectInput<K extends string, T> extends InputArgs<T, SelectArgs<K, T>> {
-    public build(): HTMLElement {
+    public build(on_input: () => void): HTMLElement {
         const container = document.createElement("div")
         container.classList.add("mp_select_set")
 
@@ -38,6 +38,8 @@ export class SelectInput<K extends string, T> extends InputArgs<T, SelectArgs<K,
                 }
 
                 elem.dataset.selected = "true"
+
+                on_input()
             }
 
             container.append(elem)

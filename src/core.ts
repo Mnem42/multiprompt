@@ -10,6 +10,9 @@ import { IsPartial } from "./util"
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { PromptBuilder } from "./builder"
 
+/** A subscriber to inputs on a prompt */
+export type Subscriber<K extends PropertyKey> = (v: Map<K, unknown>) => void;
+
 /**
  * An input which can be put into a {@link Prompt}.
  *
@@ -27,8 +30,13 @@ export abstract class Input<T> {
         this._value = default_v
     }
 
-    /** The function that creates the HTML for an input */
-    public abstract build(): HTMLElement
+    /**
+     * Creates the HTML elements for an input.
+     *
+     * @param oninput
+     * A function that should be run every time the data is updated.
+     */
+    public abstract build(oninput: () => void): HTMLElement
 
     /** Whether an input's current value is valid or not */
     public is_valid(): boolean { return true }
@@ -85,11 +93,32 @@ export class Prompt<K extends PropertyKey> {
     confirm_btn:   HTMLElement | null = null
     close_btn:     HTMLElement | null = null
 
-    constructor(title: string, controls: ControlOrInput<K>[], container: HTMLElement) {
+    subscribers: Subscriber<K>[]
+
+    constructor(
+        title: string,
+        controls: ControlOrInput<K>[],
+        subscribers: Subscriber<K>[],
+        container: HTMLElement
+    ) {
         this.title = title
         this.controls = controls
         this.container = container
+        this.subscribers = subscribers
+
         this.inputs = new Map(controls.filter(x => Array.isArray(x)))
+    }
+
+    get_values(): Map<K, unknown> | null {
+        for (const input of Object.values(this.inputs)) {
+            if (!input.is_valid()) return null
+        }
+
+        const mapped_entries = this.inputs
+            .entries()
+            .map(([k, v]) => [k, v.value] as const)
+
+        return new Map(mapped_entries)
     }
 
     public build(): HTMLElement {
@@ -117,7 +146,16 @@ export class Prompt<K extends PropertyKey> {
                 const label = document.createElement("div")
                 label.innerText = input.label
 
-                input_container.append(label, input.build())
+                input_container.append(
+                    label,
+                    input.build(() => {
+                        const values = this.get_values()
+
+                        if (values !== null) {
+                            for (const subscriber of this.subscribers) subscriber(values)
+                        }
+                    })
+                )
             }
             else {
                 input_container.append(control.build())

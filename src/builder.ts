@@ -5,7 +5,7 @@
  */
 
 import {ControlOrInput, dir_input, Header, HorizontalRule, NumberInput, TextInput} from "./controls";
-import { Input, Prompt } from "./core";
+import {Input, Prompt, Subscriber} from "./core";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Mod } from "./mod"
@@ -30,7 +30,8 @@ import { SelectInput } from "./controls"
 export class PromptBuilder<K extends PropertyKey | never = never> {
     readonly title: string
     readonly container: HTMLElement
-    controls: ControlOrInput<K>[]
+    readonly controls: ControlOrInput<K>[] = []
+    readonly subscribers: Subscriber<K>[] = []
 
     /**
      * Constructs a new builder.
@@ -44,7 +45,11 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
     constructor(title: string, container: HTMLElement) {
         this.title = title
         this.container = container
-        this.controls = []
+    }
+
+    add_subscriber(subscriber: Subscriber<K>): PromptBuilder<K> {
+        this.subscribers.push(subscriber)
+        return this
     }
 
     /**
@@ -125,6 +130,6 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
 
     /** Builds this into a prompt which can then be used **/
     build(): Prompt<K> {
-        return new Prompt(this.title, this.controls, this.container)
+        return new Prompt(this.title, this.controls, this.subscribers, this.container)
     }
 }

@@ -16,7 +16,7 @@ declare global {
 }
 
 runAfterLoad(async () => {
-    multiprompt = new Mod()
+    window.multiprompt = new Mod()
 
     const selector = new SelectBuilder<number>("thing")
         .add_option("A", 12, { colour: "#FFFF00"})
@@ -34,6 +34,7 @@ runAfterLoad(async () => {
         .add_input("selection", selector)
         .add_input("direction", dir_input("dir"))
         .dir_input("direction2", "Direction B")
+        .add_subscriber(data => console.log("Changed. New data:", data))
         .build()
 
     const v = await prompt.get()

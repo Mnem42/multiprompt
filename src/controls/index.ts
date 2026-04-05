@@ -18,12 +18,14 @@ export type ControlOrInput<K> = [K, Input<unknown>] | Control<unknown>
 export class TextInput extends Input<string> {
     input_elem: HTMLInputElement | null = null
 
-    public build(): HTMLElement {
+    public build(on_input: () => void): HTMLElement {
         this.input_elem = document.createElement("input")
         this.input_elem.value = this._value
 
         this.input_elem.style.flex = "2"
         this.input_elem.classList.add("mp_input")
+
+        this.input_elem.oninput = on_input
         
         return this.input_elem
     }
@@ -40,7 +42,7 @@ export class TextInput extends Input<string> {
 export class NumberInput extends Input<number> {
     input_elem: HTMLInputElement | null = null
 
-    public build(): HTMLElement {
+    public build(on_input: () => void): HTMLElement {
         this.input_elem = document.createElement("input")
 
         this.input_elem.value = this._value.toString()
@@ -49,6 +51,8 @@ export class NumberInput extends Input<number> {
 
         this.input_elem.style.flex = "2"
         this.input_elem.classList.add("mp_input")
+
+        this.input_elem.oninput = on_input
         
         return this.input_elem
     }
@@ -77,7 +81,7 @@ export type ToggleInputArgs = {
 export class ToggleInput extends InputOptArgs<boolean, ToggleInputArgs> {
     button: HTMLButtonElement | null = null
 
-    public build(): HTMLElement {
+    public build(on_input: () => void): HTMLElement {
         const true_text = this.args.true_text ?? "YES"
         const false_text = this.args.false_text ?? "NO"
 
@@ -91,6 +95,8 @@ export class ToggleInput extends InputOptArgs<boolean, ToggleInputArgs> {
             this.value = !this.value;
             button.dataset.enabled = this.value.toString()
             button.innerText = this.value ? true_text : false_text
+
+            on_input()
         }
         
         this.button = button
