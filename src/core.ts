@@ -203,6 +203,15 @@ export class Prompt<K extends PropertyKey> {
             }
         }
 
+        const values = this.get_values()
+
+        if (values === null)
+            throw new Error("Invalid input implementation: default values is invalid")
+
+        for (const subscriber of this.subscribers) {
+            subscriber(values)
+        }
+
         this.built = true
         this.container.appendChild(this.prompt_parent)
 
