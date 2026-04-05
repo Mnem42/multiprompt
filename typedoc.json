@@ -1,6 +1,4 @@
 {
-  "externalSymbolLinkMappings": {
-    "multiprompt": { "Mod.new_builder": "#" }
-  },
-  "plugin": ["typedoc-plugin-missing-exports"]
+  "plugin": ["typedoc-plugin-missing-exports"],
+  "entryPoints": ["src/main.ts", "src/mod.ts"]
 }

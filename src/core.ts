@@ -7,6 +7,9 @@
 import { ControlOrInput } from "./controls"
 import { IsPartial } from "./util"
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { PromptBuilder } from "./builder"
+
 /**
  * An input which can be put into a {@link Prompt}.
  *

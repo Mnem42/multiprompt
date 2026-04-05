@@ -1,5 +1,8 @@
 import { InputArgs } from "../core"
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { PromptBuilder } from "../builder"
+
 /** Additional options for a select option */
 type SelectOptions = {
     /** The CSS colour for the option */

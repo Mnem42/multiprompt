@@ -8,8 +8,9 @@ import { Input, InputOptArgs, Control } from "../core"
 export * from "./select"
 
 /**
- * @ignore
- * @internal
+ * Convenience alias for something which can either be a key-input pair or just a control.
+ *
+ * @ignore @internal
  */
 export type ControlOrInput<K> = [K, Input<unknown>] | Control<unknown>
 

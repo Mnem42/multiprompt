@@ -7,13 +7,19 @@
 import {ControlOrInput, dir_input, Header, HorizontalRule, NumberInput, TextInput} from "./controls";
 import { Input, Prompt } from "./core";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Mod } from "./mod"
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { SelectInput } from "./controls"
+
 /**
  * A builder for a {@link Prompt}. This is the much nicer API compared to directly constructing
  * {@link Prompt}, but the intended way to get one of these is to use {@link Mod.new_builder}
  *
  * @example
  * ```ts
- * const prompt = multiprompt.new_builder("Example prompt")
+ * const prompt = new PromptBuilder("Example prompt", container)
  *      .text_input("Text", "")
  *      .dir_input("Direction", "up")
  *      .hr()
@@ -29,7 +35,7 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
     /**
      * Constructs a new builder.
      *
-     * You should prefer using {@link UI.new_builder} since it provides the container element
+     * You should prefer using {@link Mod.new_builder} since it provides the container element
      * for you.
      *
      * @param title The title for the prompt
