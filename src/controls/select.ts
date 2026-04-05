@@ -1,6 +1,11 @@
 import { InputArgs } from "../core"
 
-type SelectOptions = { colour?: string }
+/** Additional options for a select option */
+type SelectOptions = {
+    /** The CSS colour for the option */
+    colour?: string
+}
+
 type SelectArgs<K, T> = [K, T, SelectOptions][]
 
 /**
