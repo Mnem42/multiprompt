@@ -1,5 +1,5 @@
 /**
- * @module
+ * @module controls
  *
  * The module which implements controls.
  */
@@ -7,6 +7,10 @@
 import { Input, InputOptArgs, Control } from "../core"
 export * from "./select"
 
+/**
+ * @ignore
+ * @internal
+ */
 export type ControlOrInput<K> = [K, Input<unknown>] | Control<unknown>
 
 /** An input for text */

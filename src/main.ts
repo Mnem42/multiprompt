@@ -1,6 +1,10 @@
 import { dir_input, SelectBuilder } from "./controls"
 import { Mod } from "./mod"
 
+export * as core from "./core"
+export * as builder from "./builder"
+export * as controls from "./controls"
+
 declare global {
     /** The mod's global state */
     let multiprompt: Mod

@@ -2,7 +2,11 @@
 import STYLE from "../assets/style.css"
 import { PromptBuilder } from "./builder";
 
-/** The singleton managing the mod inserting itself into the DOM */
+/**
+ * The singleton managing the mod inserting itself into the DOM.
+ *
+ * @internal
+ */
 export class Mod {
     prompt_container: HTMLElement
 

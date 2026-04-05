@@ -8,11 +8,12 @@ import {ControlOrInput, dir_input, Header, HorizontalRule, NumberInput, TextInpu
 import { Input, Prompt } from "./core";
 
 /**
- * A builder for a {@link Prompt}. This is the much nicer API.
+ * A builder for a {@link Prompt}. This is the much nicer API compared to directly constructing
+ * {@link Prompt}, but the intended way to get one of these is to use {@link Mod.new_builder}
  *
  * @example
  * ```ts
- * const prompt = new PromptBuilder("Example prompt")
+ * const prompt = multiprompt.new_builder("Example prompt")
  *      .text_input("Text", "")
  *      .dir_input("Direction", "up")
  *      .hr()

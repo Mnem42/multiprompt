@@ -1,3 +1,9 @@
+/**
+ * @module core
+ *
+ * The module defining the "core" of the mod (i.e. the general model and the {@link Prompt}) class
+ */
+
 import { ControlOrInput } from "./controls"
 import { IsPartial } from "./util"
 
