@@ -5,7 +5,7 @@
  */
 
 import {ControlOrInput, dir_input, Header, HorizontalRule, NumberInput, TextInput} from "./controls";
-import {Input, Prompt, Subscriber} from "./core";
+import {Control, ControlWithSubscriber, Input, Prompt, Subscriber} from "./core";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Mod } from "./mod"
@@ -73,6 +73,22 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
     add_input<NK extends PropertyKey>(k: NK, input: Input<unknown>): PromptBuilder<K | NK> {
         this.controls.push([k as unknown as K, input])
         return this as PromptBuilder<K | NK>
+    }
+
+    /**
+     * Adds an arbitrary {@link Control} or {@link ControlWithSubscriber} to the prompt.
+     *
+     * If provided a {@link ControlWithSubscriber}, adds its subscriber to the list of subscribers.
+     *
+     * @param control The control to add
+     */
+    add_control(control: Control<void> | ControlWithSubscriber<void, K>): this {
+        if (control instanceof ControlWithSubscriber) {
+            this.subscribers.push(control.subscriber)
+        }
+
+        this.controls.push(control)
+        return this
     }
 
     /**

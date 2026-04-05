@@ -100,6 +100,22 @@ export abstract class Control<A> {
 }
 
 /**
+ * A control with a builtin {@link Subscriber}
+ *
+ * @typeParam A The arguments for the control
+ * @typeParam K The property keys for the prompt values
+ * @see Control
+ */
+export abstract class ControlWithSubscriber<A, K extends PropertyKey> extends Control<A> {
+    /**
+     * The subscriber callback
+     *
+     * @param value The prompt's values
+     */
+    public abstract subscriber(value: Map<K, unknown>): void
+}
+
+/**
  * A prompt that can be rendered.
  *
  * If you want to make one, you probably want {@link PromptBuilder}, since it's a much more
