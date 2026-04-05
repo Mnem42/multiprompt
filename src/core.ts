@@ -144,7 +144,8 @@ export class Prompt<K extends PropertyKey> {
                     if (!input.is_valid()) return
                 }
 
-                const mapped_entries = Object.entries(this.inputs)
+                const mapped_entries = this.inputs
+                    .entries()
                     .map(([k, v]) => [k, v.value])
 
                 resolve(Object.fromEntries(mapped_entries))
