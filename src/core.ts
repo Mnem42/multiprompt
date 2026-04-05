@@ -185,7 +185,7 @@ export class Prompt<K extends PropertyKey> {
      * console.log("Prompt data:", data)
      * ```
      */
-    public async get(): Promise<typeof this.inputs | null> {
+    public async get(): Promise<Record<K, unknown> | null> {
         if (!this.built) {
             this.build()
         }
@@ -194,7 +194,7 @@ export class Prompt<K extends PropertyKey> {
 
         this.prompt_parent.style.display = "block"
 
-        return new Promise<typeof this.inputs | null>((resolve) => {
+        return new Promise<Record<K, unknown> | null>((resolve) => {
             dbg_assert: if (
                 this.confirm_btn === null ||
                 this.close_btn === null ||
@@ -210,9 +210,9 @@ export class Prompt<K extends PropertyKey> {
 
                 const mapped_entries = this.inputs
                     .entries()
-                    .map(([k, v]) => [k, v.value])
+                    .map(([k, v]) => [k, v.value] as const)
 
-                resolve(Object.fromEntries(mapped_entries))
+                resolve(Object.fromEntries(mapped_entries) as Record<K, unknown>)
             }
 
             this.close_btn.onclick = () => resolve(null)

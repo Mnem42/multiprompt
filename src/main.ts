@@ -39,6 +39,6 @@ runAfterLoad(async () => {
 
     const v = await prompt.get()
     if (v !== null) {
-        console.log("A:", v.get("a")?.value as string)
+        console.log("A:", v["a"] as string)
     }
 })
