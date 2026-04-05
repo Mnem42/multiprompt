@@ -18,6 +18,7 @@ runAfterLoad(async () => {
         .hr()
         .add_input("selection", selector)
         .add_input("direction", dir_input("dir"))
+        .dir_input("direction2", "Direction B")
         .build()
 
     prompt.get()

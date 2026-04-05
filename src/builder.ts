@@ -1,4 +1,4 @@
-import { Control, HorizontalRule, NumberInput, TextInput } from "./controls";
+import {Control, dir_input, HorizontalRule, NumberInput, TextInput} from "./controls";
 import { Input, Prompt } from "./core";
 
 
@@ -30,6 +30,11 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
 
     add_input<NK extends PropertyKey>(k: NK, input: Input<unknown>): PromptBuilder<K | NK> {
         this.inputs.push([k as unknown as K, input])
+        return this as PromptBuilder<K | NK>
+    }
+
+    dir_input<NK extends PropertyKey>(k: NK, label: string): PromptBuilder<K | NK> {
+        this.inputs.push([k as unknown as K, dir_input(label)])
         return this as PromptBuilder<K | NK>
     }
 
