@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-labels */
-
 import { ControlOrInput } from "./controls"
 import { IsPartial } from "./util"
 

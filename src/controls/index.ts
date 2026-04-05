@@ -3,6 +3,7 @@ export * from "./select"
 
 export type ControlOrInput<K> = [K, Input<unknown>] | Control<unknown>
 
+/** An input for text */
 export class TextInput extends Input<string> {
     input_elem: HTMLInputElement | null = null
 
@@ -17,7 +18,6 @@ export class TextInput extends Input<string> {
     }
 
     get value() {
-        // eslint-disable-next-line no-unused-labels
         dbg_assert: if (!this.input_elem)
             throw new Error("Attempt to get control value before build")
 
@@ -25,6 +25,7 @@ export class TextInput extends Input<string> {
     }
 }
 
+/** A numeric input */
 export class NumberInput extends Input<number> {
     input_elem: HTMLInputElement | null = null
 
@@ -46,7 +47,6 @@ export class NumberInput extends Input<number> {
     }
 
     get value() {
-        // eslint-disable-next-line no-unused-labels
         dbg_assert: if (!this.input_elem)
             throw new Error("Attempt to get control value before build")
 
@@ -54,11 +54,15 @@ export class NumberInput extends Input<number> {
     }
 }
 
+/** Arguments for a {@link ToggleInput} */
 type ToggleInputArgs = {
+    /** The text to display when the value is `true` */
     true_text?: string,
+    /** The text to display when the value is `false` */
     false_text?: string
 }
 
+/** An input that can be toggled */
 export class ToggleInput extends InputOptArgs<boolean, ToggleInputArgs> {
     button: HTMLButtonElement | null = null
 
@@ -87,6 +91,7 @@ export class ToggleInput extends InputOptArgs<boolean, ToggleInputArgs> {
     }
 }
 
+/** A horizontal rule */
 export class HorizontalRule extends Control<void> {
     constructor() {
         super()
@@ -99,9 +104,16 @@ export class HorizontalRule extends Control<void> {
     }
 }
 
+/** A header */
 export class Header extends Control<string> {
     size: number
 
+    /**
+     * Constructs a header
+     *
+     * @param text The text to have
+     * @param size The size for the header (in em)
+     */
     constructor(text: string, size: number) {
         super(text)
         this.size = size

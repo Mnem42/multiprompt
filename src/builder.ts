@@ -90,6 +90,12 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
         return this
     }
 
+    /**
+     * Adds a header.
+     *
+     * @param text The text to have in the header
+     * @param size The header size (in em)
+     */
     header(text: string, size: number = 1.5): PromptBuilder<K> {
         this.controls.push(new Header(text, size))
         return this

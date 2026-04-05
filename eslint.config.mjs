@@ -5,9 +5,14 @@ import { defineConfig } from 'eslint/config';
 import tseslint from 'typescript-eslint';
 
 export default defineConfig(
-  eslint.configs.recommended,
-  tseslint.configs.recommended,
-  {
-    files: [ "src/*.ts" ]
-  }
+    eslint.configs.recommended,
+    tseslint.configs.recommended,
+    {
+        files: [ "src/*.ts" ],
+    },
+    {
+        rules: {
+            "no-unused-labels": "off"
+        }
+    }
 );
