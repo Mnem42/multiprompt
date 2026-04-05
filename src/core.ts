@@ -3,11 +3,16 @@
 import { Control } from "./controls"
 import { IsPartial } from "./util"
 
+/**
+ * An input which can be put into a {@link Prompt}.
+ *
+ * If you want to make a custom control, implement this
+ */
 export abstract class Input<T> {
     /** The label displayed next to the input */
     readonly label: string
 
-    /** The intenral value */
+    /** The internal value */
     _value: T
 
     constructor(label: string, default_v: T) {
@@ -55,6 +60,12 @@ export abstract class NonInputControl<A> {
     public abstract build(): HTMLElement
 }
 
+/**
+ * A prompt that can be rendered.
+ *
+ * If you want to make one, you probably want {@link PromptBuilder}, since oit's a much more
+ * ergonomic API.
+ */
 export class Prompt<K extends PropertyKey> {
     controls: Control<K>[]
     inputs: Map<K, Input<unknown>>
