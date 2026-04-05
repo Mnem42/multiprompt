@@ -22,7 +22,5 @@ runAfterLoad(async () => {
         .dir_input("direction2", "Direction B")
         .build()
 
-    prompt.get()
-        .then(x => console.log(x))
-        .catch(e => console.log("cancelled", e))
+    console.log(await prompt.get())
 })

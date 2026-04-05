@@ -124,26 +124,21 @@ export class Prompt<K extends PropertyKey> {
     /**
      * Gets the values in the prompt
      *
-     * Returns successfully with the input values if the confirm button was pressed, and rejects if
-     * it was closed with the close button.
-     *
-     * @remarks
-     * You *can* await on this, but it's easier to use `.then(x => ...).catch(e => ...)` because it
-     * rejects is it was closed and you'd have to manually catch that.
+     * Returns successfully with the input values if the confirm button was pressed. Returns `null`
+     * if the prompt was closed without confirming.
      *
      * @example
-     * ```
+     * ```js
      * let prompt = new PromptBuilder("Test prompt")
      *      .text_input("a", "A")
      *      .numeric_input("b", "B", 12)
      *      .build()
      *
-     * prompt.get()
-     *      .then(x => console.log("Prompt data:", x))
-     *      .catch(e => console.log("Prompt closed"))
+     * const data = await prompt.get()
+     * console.log("Prompt data:", data)
      * ```
      */
-    public async get(): Promise<typeof this.inputs> {
+    public async get(): Promise<typeof this.inputs | null> {
         if (!this.built) {
             this.build()
         }
@@ -152,7 +147,7 @@ export class Prompt<K extends PropertyKey> {
 
         this.prompt_parent.style.display = "block"
 
-        return new Promise<typeof this.inputs>((resolve, reject) => {
+        return new Promise<typeof this.inputs | null>((resolve) => {
             dbg_assert: if (
                 this.confirm_btn === null ||
                 this.close_btn === null ||
@@ -173,7 +168,7 @@ export class Prompt<K extends PropertyKey> {
                 resolve(Object.fromEntries(mapped_entries))
             }
 
-            this.close_btn.onclick = () => reject("close")
+            this.close_btn.onclick = () => resolve(null)
         }).finally(() => {
             dbg_assert: if(this.prompt_parent === null) throw new Error("wtf")
             this.prompt_parent.style.display = "none"
