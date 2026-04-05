@@ -14,7 +14,7 @@ let mod_inited: boolean = false;
  * The singleton managing the mod inserting itself into the DOM.
  *
  * @exception
- * If an attempt is made to initialize one even though the mod is already inited.
+ * If an attempt is made to initialise one even though the mod is already inited.
  *
  * @internal
  */

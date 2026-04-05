@@ -102,7 +102,7 @@ export abstract class Control<A> {
 /**
  * A prompt that can be rendered.
  *
- * If you want to make one, you probably want {@link PromptBuilder}, since oit's a much more
+ * If you want to make one, you probably want {@link PromptBuilder}, since it's a much more
  * ergonomic API.
  *
  * @typeParam K The type of the keys for the prompt value map
