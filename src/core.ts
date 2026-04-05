@@ -121,6 +121,28 @@ export class Prompt<K extends PropertyKey> {
         return this.prompt_parent
     }
 
+    /**
+     * Gets the values in the prompt
+     *
+     * Returns successfully with the input values if the confirm button was pressed, and rejects if
+     * it was closed with the close button.
+     *
+     * @remarks
+     * You *can* await on this, but it's easier to use `.then(x => ...).catch(e => ...)` because it
+     * rejects is it was closed and you'd have to manually catch that.
+     *
+     * @example
+     * ```
+     * let prompt = new PromptBuilder("Test prompt")
+     *      .text_input("a", "A")
+     *      .numeric_input("b", "B", 12)
+     *      .build()
+     *
+     * prompt.get()
+     *      .then(x => console.log("Prompt data:", x))
+     *      .catch(e => console.log("Prompt closed"))
+     * ```
+     */
     public async get(): Promise<typeof this.inputs> {
         if (!this.built) {
             this.build()
