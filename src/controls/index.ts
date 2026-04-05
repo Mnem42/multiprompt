@@ -71,15 +71,15 @@ export class ToggleInput extends InputOptArgs<boolean, ToggleInputArgs> {
         const false_text = this.args.false_text ?? "NO"
 
         const button = document.createElement("button")
-        button.innerText = this._value ? true_text : false_text
-        button.dataset.enabled = this._value.toString()
+        button.innerText = this.value ? true_text : false_text
+        button.dataset.enabled = this.value.toString()
 
         button.style.flex = "2"
         button.classList.add("mp_toggle")
         button.onclick = () => {
-            this._value = !this._value;
-            button.dataset.enabled = this._value.toString()
-            button.innerText = this._value ? true_text : false_text
+            this.value = !this.value;
+            button.dataset.enabled = this.value.toString()
+            button.innerText = this.value ? true_text : false_text
         }
         
         this.button = button

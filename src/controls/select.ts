@@ -18,12 +18,12 @@ export class SelectInput<K extends string, T> extends InputArgs<T, SelectArgs<K,
             
             if (opts.colour) elem.style.color = opts.colour
 
-            if (this._value == v) {
+            if (this.value == v) {
                 elem.dataset.selected = "true"
             }
 
             elem.onclick = () => {
-                this._value = v
+                this.value = v
 
                 for (const x of container.children) {
                     (x as HTMLElement).dataset.selected = "false"
