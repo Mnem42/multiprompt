@@ -5,7 +5,7 @@
  */
 
 import { Input, InputOptArgs, Control } from "../core"
-export * from "./select"
+export { SelectOptions, SelectBuilder, SelectInput, dir_input } from "./select"
 
 /**
  * Convenience alias for something which can either be a key-input pair or just a control.
@@ -66,7 +66,7 @@ export class NumberInput extends Input<number> {
 }
 
 /** Arguments for a {@link ToggleInput} */
-type ToggleInputArgs = {
+export type ToggleInputArgs = {
     /** The text to display when the value is `true` */
     true_text?: string,
     /** The text to display when the value is `false` */

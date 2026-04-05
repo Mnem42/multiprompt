@@ -4,7 +4,7 @@ import { InputArgs } from "../core"
 import { PromptBuilder } from "../builder"
 
 /** Additional options for a select option */
-type SelectOptions = {
+export type SelectOptions = {
     /** The CSS colour for the option */
     colour?: string
 }
