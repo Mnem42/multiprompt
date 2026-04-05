@@ -1,8 +1,16 @@
 import { dir_input, SelectBuilder } from "./controls"
 import { UI } from "./ui"
 
+declare global {
+    let multiprompt: UI
+
+    interface Window {
+        multiprompt: UI
+    }
+}
+
 runAfterLoad(async () => {
-    const manager = new UI()
+    multiprompt = new UI()
 
     const selector = new SelectBuilder<number>("thing")
         .add_option("A", 12, { colour: "#FFFF00"})
@@ -11,7 +19,7 @@ runAfterLoad(async () => {
         .set_default("C")
         .build()
 
-    const prompt = manager
+    const prompt = multiprompt
         .new_builder("Thing")
         .text_input("a", "A", "test")
         .numeric_input("b", "B", 2763)
