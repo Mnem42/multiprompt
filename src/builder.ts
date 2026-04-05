@@ -1,3 +1,9 @@
+/**
+ * @module builder
+ *
+ * Defines {@link PromptBuilder}
+ */
+
 import {ControlOrInput, dir_input, Header, HorizontalRule, NumberInput, TextInput} from "./controls";
 import { Input, Prompt } from "./core";
 

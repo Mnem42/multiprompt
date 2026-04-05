@@ -1,3 +1,9 @@
+/**
+ * @module
+ *
+ * The module which implements controls.
+ */
+
 import { Input, InputOptArgs, Control } from "../core"
 export * from "./select"
 
