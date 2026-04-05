@@ -1,16 +1,16 @@
 import { dir_input, SelectBuilder } from "./controls"
-import { UI } from "./ui"
+import { Mod } from "./mod"
 
 declare global {
-    let multiprompt: UI
+    let multiprompt: Mod
 
     interface Window {
-        multiprompt: UI
+        multiprompt: Mod
     }
 }
 
 runAfterLoad(async () => {
-    multiprompt = new UI()
+    multiprompt = new Mod()
 
     const selector = new SelectBuilder<number>("thing")
         .add_option("A", 12, { colour: "#FFFF00"})
