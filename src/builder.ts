@@ -26,6 +26,21 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
     }
 
     /**
+     * Adds an arbitrary input.
+     *
+     * You should prefer the more specialized functions like
+     * {@link text_input} and {@link numeric_input} unless they aren't defined for the specific
+     * type of input.
+     *
+     * @param k
+     * @param input
+     */
+    add_input<NK extends PropertyKey>(k: NK, input: Input<unknown>): PromptBuilder<K | NK> {
+        this.inputs.push([k as unknown as K, input])
+        return this as PromptBuilder<K | NK>
+    }
+
+    /**
      * Helper to add a {@link TextInput}
      *
      * @param key The key in the data
@@ -52,21 +67,6 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
             key,
             new NumberInput(label, default_v)
         )
-    }
-
-    /**
-     * Adds an arbitrary input.
-     *
-     * You should prefer the more specialized functions like
-     * {@link text_input} and {@link numeric_input} unless they aren't defined for the specific
-     * type of input.
-     *
-     * @param k
-     * @param input
-     */
-    add_input<NK extends PropertyKey>(k: NK, input: Input<unknown>): PromptBuilder<K | NK> {
-        this.inputs.push([k as unknown as K, input])
-        return this as PromptBuilder<K | NK>
     }
 
     /**
