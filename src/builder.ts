@@ -63,7 +63,7 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
     /**
      * Adds an arbitrary input.
      *
-     * You should prefer the more specialized functions like
+     * You should prefer the more specialised functions like
      * {@link text_input} and {@link numeric_input} unless they aren't defined for the specific
      * type of input.
      *
