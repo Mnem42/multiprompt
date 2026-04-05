@@ -10,13 +10,20 @@ import { IsPartial } from "./util"
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { PromptBuilder } from "./builder"
 
-/** A subscriber to inputs on a prompt */
+/**
+ * A callback run every time there's a valid input in a prompt
+ *
+ * @typeParam K The prompt's keys.
+ * @param v The prompt's data
+ */
 export type Subscriber<K extends PropertyKey> = (v: Map<K, unknown>) => void;
 
 /**
  * An input which can be put into a {@link Prompt}.
  *
- * If you want to make a custom control, implement this
+ * @typeParam T The type the input's value has
+ * @see InputArgs
+ * @see InputOptArgs
  */
 export abstract class Input<T> {
     /** The label displayed next to the input */
@@ -45,7 +52,13 @@ export abstract class Input<T> {
     public get value() { return this._value }
 }
 
-/** An {@link Input} with arguments */
+/**
+ * An {@link Input} with arguments that are always required.
+ *
+ * @typeParam T The type the input's value has
+ * @see Input
+ * @see InputOptArgs
+ */
 export abstract class InputArgs<T, A> extends Input<T> {
     readonly args: A
 
@@ -55,7 +68,13 @@ export abstract class InputArgs<T, A> extends Input<T> {
     }
 }
 
-/** An {@link Input} with arguments which are an object with *only* optional values */
+/**
+ * An {@link Input} where the arguments are an object with *only* optional values.
+ *
+ * @typeParam T The type the input's value has
+ * @see Input
+ * @see InputArgs
+ */
 export abstract class InputOptArgs<T, A extends (IsPartial<A> extends true ? object : never)> extends Input<T> {
     readonly args: A
 
@@ -65,7 +84,11 @@ export abstract class InputOptArgs<T, A extends (IsPartial<A> extends true ? obj
     }
 }
 
-/** A control that isn't an input */
+/**
+ * A control that isn't an input.
+ *
+ * @typeParam T The type for any args the control has
+ */
 export abstract class Control<A> {
     readonly args: A
 
@@ -81,6 +104,8 @@ export abstract class Control<A> {
  *
  * If you want to make one, you probably want {@link PromptBuilder}, since oit's a much more
  * ergonomic API.
+ *
+ * @typeParam K The type of the keys for the prompt value map
  */
 export class Prompt<K extends PropertyKey> {
     controls: ControlOrInput<K>[]

@@ -47,6 +47,14 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
         this.container = container
     }
 
+    /**
+     * Adds a subscriber.
+     *
+     * Subscribers are callbacks that are run every time an input changes.
+     *
+     * @see Subscriber
+     * @param subscriber
+     */
     add_subscriber(subscriber: Subscriber<K>): PromptBuilder<K> {
         this.subscribers.push(subscriber)
         return this
