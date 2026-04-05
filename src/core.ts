@@ -92,7 +92,7 @@ export abstract class InputOptArgs<T, A extends (IsPartial<A> extends true ? obj
 export abstract class Control<A> {
     readonly args: A
 
-    constructor(args: A) {
+    protected constructor(args: A) {
         this.args = args
     }
 
