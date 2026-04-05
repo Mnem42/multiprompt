@@ -19,6 +19,15 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
     readonly container: HTMLElement
     controls: ControlOrInput<K>[]
 
+    /**
+     * Constructs a new builder.
+     *
+     * You should prefer using {@link UI.new_builder} since it provides the container element
+     * for you.
+     *
+     * @param title The title for the prompt
+     * @param container The container to put the prompt in when built
+     */
     constructor(title: string, container: HTMLElement) {
         this.title = title
         this.container = container
