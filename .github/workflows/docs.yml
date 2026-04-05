@@ -1,0 +1,22 @@
+on:
+  push:
+jobs:
+  doc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+      - name: Download deps
+        run: npm ci
+      - name: Run typedoc
+        run: npx typedoc
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'docs/'
+      - name: Deploy to pages
+        id: deployment
+        uses: actions/deploy-pages@v4
