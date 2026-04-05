@@ -1,3 +1,4 @@
+// @ts-expect-error esbuild bundles this
 import STYLE from "../assets/style.css"
 import { PromptBuilder } from "./builder";
 
