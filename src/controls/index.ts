@@ -1,7 +1,7 @@
-import { Input, InputOptArgs, NonInputControl } from "../core"
+import { Input, InputOptArgs, Control } from "../core"
 export * from "./select"
 
-export type Control<K> = [K, Input<unknown>] | NonInputControl<unknown>
+export type ControlOrInput<K> = [K, Input<unknown>] | Control<unknown>
 
 export class TextInput extends Input<string> {
     input_elem: HTMLInputElement | null = null
@@ -87,7 +87,7 @@ export class ToggleInput extends InputOptArgs<boolean, ToggleInputArgs> {
     }
 }
 
-export class HorizontalRule extends NonInputControl<void> {
+export class HorizontalRule extends Control<void> {
     constructor() {
         super()
     }

@@ -1,4 +1,4 @@
-import {Control, dir_input, HorizontalRule, NumberInput, TextInput} from "./controls";
+import {ControlOrInput, dir_input, HorizontalRule, NumberInput, TextInput} from "./controls";
 import { Input, Prompt } from "./core";
 
 /**
@@ -17,7 +17,7 @@ import { Input, Prompt } from "./core";
 export class PromptBuilder<K extends PropertyKey | never = never> {
     readonly title: string
     readonly container: HTMLElement
-    controls: Control<K>[]
+    controls: ControlOrInput<K>[]
 
     constructor(title: string, container: HTMLElement) {
         this.title = title

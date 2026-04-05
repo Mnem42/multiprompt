@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-labels */
 
-import { Control } from "./controls"
+import { ControlOrInput } from "./controls"
 import { IsPartial } from "./util"
 
 /**
@@ -50,7 +50,8 @@ export abstract class InputOptArgs<T, A extends (IsPartial<A> extends true ? obj
     }
 }
 
-export abstract class NonInputControl<A> {
+/** A control that isn't an input */
+export abstract class Control<A> {
     readonly args: A
 
     constructor(args: A) {
@@ -67,7 +68,7 @@ export abstract class NonInputControl<A> {
  * ergonomic API.
  */
 export class Prompt<K extends PropertyKey> {
-    controls: Control<K>[]
+    controls: ControlOrInput<K>[]
     inputs: Map<K, Input<unknown>>
     container: HTMLElement
     title: string
@@ -77,7 +78,7 @@ export class Prompt<K extends PropertyKey> {
     confirm_btn:   HTMLElement | null = null
     close_btn:     HTMLElement | null = null
 
-    constructor(title: string, controls: Control<K>[], container: HTMLElement) {
+    constructor(title: string, controls: ControlOrInput<K>[], container: HTMLElement) {
         this.title = title
         this.controls = controls
         this.container = container
