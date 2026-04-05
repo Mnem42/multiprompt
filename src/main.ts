@@ -2,9 +2,11 @@ import { dir_input, SelectBuilder } from "./controls"
 import { Mod } from "./mod"
 
 declare global {
+    /** The mod's global state */
     let multiprompt: Mod
 
     interface Window {
+        /** The mod's global state */
         multiprompt: Mod
     }
 }
