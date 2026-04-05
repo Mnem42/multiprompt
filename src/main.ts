@@ -1,4 +1,4 @@
-import { DirInput as dir_input, SelectBuilder } from "./controls"
+import { dir_input, SelectBuilder } from "./controls"
 import { UI } from "./ui"
 
 runAfterLoad(async () => {

@@ -69,7 +69,7 @@ export class SelectBuilder<T, K extends string = never> {
 
 type Direction = "up" | "down" | "left" | "right"
 
-export function DirInput(label: string): SelectInput<Direction, Direction> {
+export function dir_input(label: string): SelectInput<Direction, Direction> {
     const v = new SelectBuilder<Direction>(label)
 
     v.add_option("↑", "up")
