@@ -22,5 +22,8 @@ runAfterLoad(async () => {
         .dir_input("direction2", "Direction B")
         .build()
 
-    console.log(await prompt.get())
+    const v = await prompt.get()
+    if (v !== null) {
+        console.log("A:", v.get("a")?.value as string)
+    }
 })
