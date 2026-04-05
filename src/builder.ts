@@ -84,7 +84,7 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
      */
     add_control(control: Control<void> | ControlWithSubscriber<void, K>): this {
         if (control instanceof ControlWithSubscriber) {
-            this.subscribers.push(control.subscriber)
+            this.subscribers.push(control.subscriber.bind(control))
         }
 
         this.controls.push(control)

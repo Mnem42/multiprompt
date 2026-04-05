@@ -1,5 +1,6 @@
 import { dir_input, SelectBuilder } from "./controls"
 import { Mod } from "./mod"
+import {CanvasPreview} from "./preview"
 
 export * as core from "./core"
 export * as builder from "./builder"
@@ -35,6 +36,11 @@ runAfterLoad(async () => {
         .add_input("direction", dir_input("dir"))
         .dir_input("direction2", "Direction B")
         .add_subscriber(data => console.log("Changed. New data:", data))
+        .add_control(new CanvasPreview((ctx, v) => {
+            ctx.fillStyle = "#FFFFFF"
+            ctx.fillText(v.get("a") as string, 20, 20)
+            ctx.fill()
+        }))
         .build()
 
     const v = await prompt.get()
