@@ -17,12 +17,12 @@ import { Input, Prompt } from "./core";
 export class PromptBuilder<K extends PropertyKey | never = never> {
     readonly title: string
     readonly container: HTMLElement
-    inputs: Control<K>[]
+    controls: Control<K>[]
 
     constructor(title: string, container: HTMLElement) {
         this.title = title
         this.container = container
-        this.inputs = []
+        this.controls = []
     }
 
     /**
@@ -36,7 +36,7 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
      * @param input
      */
     add_input<NK extends PropertyKey>(k: NK, input: Input<unknown>): PromptBuilder<K | NK> {
-        this.inputs.push([k as unknown as K, input])
+        this.controls.push([k as unknown as K, input])
         return this as PromptBuilder<K | NK>
     }
 
@@ -80,18 +80,18 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
      * @param label The label for the input
      */
     dir_input<NK extends PropertyKey>(k: NK, label: string): PromptBuilder<K | NK> {
-        this.inputs.push([k as unknown as K, dir_input(label)])
+        this.controls.push([k as unknown as K, dir_input(label)])
         return this as PromptBuilder<K | NK>
     }
 
     /** Inserts a horizontal rule. */
     hr(): PromptBuilder<K> {
-        this.inputs.push(new HorizontalRule)
+        this.controls.push(new HorizontalRule)
         return this
     }
 
     /** Builds this into a prompt which can then be used **/
     build(): Prompt<K> {
-        return new Prompt(this.title, this.inputs, this.container)
+        return new Prompt(this.title, this.controls, this.container)
     }
 }
