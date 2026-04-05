@@ -8,8 +8,13 @@
 import STYLE from "../assets/style.css"
 import { PromptBuilder } from "./builder";
 
+let mod_inited: boolean = false;
+
 /**
  * The singleton managing the mod inserting itself into the DOM.
+ *
+ * @exception
+ * If an attempt is made to initialize one even though the mod is already inited.
  *
  * @internal
  */
@@ -17,11 +22,16 @@ export class Mod {
     prompt_container: HTMLElement
 
     constructor() {
+        if (mod_inited) {
+            throw new Error("This is a *SINGLE*ton")
+        }
+
         const style_elem = document.createElement("style")
         style_elem.innerHTML = STYLE
         document.head.appendChild(style_elem)
 
         this.prompt_container = document.getElementById("gameDiv") as HTMLElement
+        mod_inited = true;
     }
 
     /**
