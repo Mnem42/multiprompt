@@ -122,7 +122,7 @@
 
 .mp_preview_container {
     border: 1px solid var(--theme-dark);
-    overflow: hidden;
+    overflow: clip;
 
     max-width: 100%;
     min-width: 0;
