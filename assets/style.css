@@ -119,14 +119,11 @@
     grid-column: 1 / 3;
 }
 
-.mp_preview_canvas {
+.mp_preview_container {
     border: 1px solid var(--theme-dark);
-    width: 100%;
-
-    image-rendering: pixelated;
 }
 
-.mp_prompt_inputs > .mp_preview_canvas {
+.mp_prompt_inputs > .mp_preview_container {
     margin: 0.5em 0 0.5em 0;
     grid-column: 1 / 3;
 }
