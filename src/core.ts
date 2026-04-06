@@ -169,7 +169,7 @@ export class Prompt<K extends PropertyKey> {
 
         this.prompt_parent.innerHTML = `
         <div class="mp_screen menuScreen">
-            <button class="XButton">-</button>
+            <button class="XButton"></button>
             <span class="menuTitle" style="color: unset;">${this.title}</span>
             <div class="mp_prompt_inputs menuText" style="padding-top:1em"></div>
             <span class="mp_confirm menuBottomButton promptOK">Confirm</span>
