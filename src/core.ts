@@ -153,7 +153,7 @@ export class Prompt<K extends PropertyKey> {
         this.inputs = new Map(controls.filter(x => Array.isArray(x)))
     }
 
-    get_values(): Map<K, unknown> | null {
+    private get_values(): Map<K, unknown> | null {
         for (const input of Object.values(this.inputs)) {
             if (!input.is_valid()) return null
         }
@@ -165,7 +165,7 @@ export class Prompt<K extends PropertyKey> {
         return new Map(mapped_entries)
     }
 
-    public build(): HTMLElement {
+    build(): HTMLElement {
         this.prompt_parent = document.createElement("div")
         this.prompt_parent.classList.add("menuParent")
 

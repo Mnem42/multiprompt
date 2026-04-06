@@ -120,7 +120,7 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
      * @see CanvasPreview.render
      * @see RenderCallback
      */
-    redraw() {
+    private redraw() {
         if (this.ctx && this.values && this.canvas) {
             this.ctx.reset()
             this.ctx.translate(this.pan_x, this.pan_y)
@@ -146,7 +146,7 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
      * @see HTMLCanvasElement.width
      * @see HTMLCanvasElement.height
      */
-    public with_resolution(width: number, height: number): this {
+    with_resolution(width: number, height: number): this {
         this.width = width
         this.height = height
 
@@ -172,7 +172,7 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
      *
      * @see ZoomArgs
      */
-    public with_zoom(args: Partial<ZoomArgs> = {}, preserve: boolean = false): this {
+    with_zoom(args: Partial<ZoomArgs> = {}, preserve: boolean = false): this {
         if (this.built && !preserve) {
             this.pan_x = 0
             this.pan_y = 0
@@ -195,7 +195,7 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
      *
      * @see CSSStyleDeclaration.imageRendering
      */
-    public set_rendering(mode: typeof this.image_rendering): this {
+    set_rendering(mode: typeof this.image_rendering): this {
         this.image_rendering = mode
         return this
     }
