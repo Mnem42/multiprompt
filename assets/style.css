@@ -121,6 +121,7 @@
 
 .mp_preview_container {
     border: 1px solid var(--theme-dark);
+    width: 100%;
 }
 
 .mp_prompt_inputs > .mp_preview_container {
