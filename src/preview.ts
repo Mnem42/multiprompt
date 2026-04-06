@@ -5,12 +5,22 @@
  */
 import {Control, ControlWithSubscriber, Subscriber} from "./core"
 
+/**
+ * A callback that can be used for rendering a {@link CanvasPreview}
+ *
+ * @see CanvasPreview.constructor
+ */
 export type RenderCallback<K> = (
     ctx: CanvasRenderingContext2D,
     value: Map<K, unknown>,
     canvas: HTMLCanvasElement
 ) => void;
 
+/**
+ * Arguments for setting a {@link CanvasPreview}'s zooming and panning behaviour.
+ *
+ * @see CanvasPreview.with_zoom
+ */
 export type ZoomArgs = {
     min_zoom: number;
     max_zoom: number;
