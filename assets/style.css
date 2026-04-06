@@ -8,13 +8,14 @@
 }
 
 .mp_prompt_inputs {
-    padding-top: 0.25em;
-    margin: 0.75em;
+    padding-top: 1em;
+    margin: 0.75em 0.75em 4.6em;
 
     display: grid;
     grid-template-columns: auto auto;
 
-    overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: clip;
 
     * {
         align-self: center;
@@ -76,7 +77,7 @@
 }
 
 .mp_confirm {
-	position:sticky;
+	position: absolute;
 	cursor: pointer;
 
     left: 0;
@@ -121,7 +122,10 @@
 
 .mp_preview_container {
     border: 1px solid var(--theme-dark);
-    width: 100%;
+    overflow: hidden;
+
+    max-width: 100%;
+    min-width: 0;
 }
 
 .mp_prompt_inputs > .mp_preview_container {
