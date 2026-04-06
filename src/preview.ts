@@ -3,7 +3,7 @@
  *
  * Defines previews which can either be stuck to the bottom of a prompt or used as normal controls.
  */
-import {Control, ControlWithSubscriber, Subscriber} from "./core"
+import {ControlWithSubscriber} from "./core"
 
 /**
  * A callback that can be used for rendering a {@link CanvasPreview}
