@@ -118,3 +118,15 @@
 .mp_header {
     grid-column: 1 / 3;
 }
+
+.mp_preview_canvas {
+    border: 1px solid var(--theme-dark);
+    width: 100%;
+
+    image-rendering: pixelated;
+}
+
+.mp_prompt_inputs > .mp_preview_canvas {
+    margin: 0.5em 0 0.5em 0;
+    grid-column: 1 / 3;
+}

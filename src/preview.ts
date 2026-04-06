@@ -28,6 +28,7 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
         this.canvas = document.createElement("canvas")
         this.ctx = this.canvas.getContext("2d")
 
+        this.canvas.classList.add("mp_preview_canvas")
         this.canvas.width = this.width
         this.canvas.height = this.height
 
