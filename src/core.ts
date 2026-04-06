@@ -129,6 +129,7 @@ export class Prompt<K extends PropertyKey> {
     container: HTMLElement
     title: string
     built: boolean = false
+    height: number
 
     prompt_parent: HTMLElement | null = null
     confirm_btn:   HTMLElement | null = null
@@ -140,12 +141,14 @@ export class Prompt<K extends PropertyKey> {
         title: string,
         controls: ControlOrInput<K>[],
         subscribers: Subscriber<K>[],
-        container: HTMLElement
+        container: HTMLElement,
+        height: number,
     ) {
         this.title = title
         this.controls = controls
         this.container = container
         this.subscribers = subscribers
+        this.height = height
 
         this.inputs = new Map(controls.filter(x => Array.isArray(x)))
     }
@@ -165,7 +168,9 @@ export class Prompt<K extends PropertyKey> {
     public build(): HTMLElement {
         this.prompt_parent = document.createElement("div")
         this.prompt_parent.classList.add("menuParent")
+
         this.prompt_parent.style.display = "block"
+        this.prompt_parent.style.minHeight = `${this.height}%`
 
         this.prompt_parent.innerHTML = `
         <div class="mp_screen menuScreen">

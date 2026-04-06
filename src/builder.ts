@@ -34,6 +34,13 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
     readonly subscribers: Subscriber<K>[] = []
 
     /**
+     * The height for the prompt in %
+     *
+     * @see PromptBuilder.with_height
+     */
+    height: number = 60
+
+    /**
      * Constructs a new builder.
      *
      * You should prefer using {@link Mod.new_builder} since it provides the container element
@@ -45,6 +52,16 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
     constructor(title: string, container: HTMLElement) {
         this.title = title
         this.container = container
+    }
+
+    /**
+     * Sets the height of a prompt in %
+     *
+     * @param height The new aspect height
+     */
+    with_height(height: number): this {
+        this.height = height
+        return this
     }
 
     /**
@@ -154,6 +171,12 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
 
     /** Builds this into a prompt which can then be used **/
     build(): Prompt<K> {
-        return new Prompt(this.title, this.controls, this.subscribers, this.container)
+        return new Prompt(
+            this.title,
+            this.controls,
+            this.subscribers,
+            this.container,
+            this.height
+        )
     }
 }
