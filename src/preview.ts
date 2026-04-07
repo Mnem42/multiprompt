@@ -25,6 +25,7 @@ export type ZoomArgs = {
     min_zoom: number;
     max_zoom: number;
     zoom_speed: number;
+    zoom_increments: number;
 }
 
 /**
@@ -138,9 +139,14 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
      */
     private redraw() {
         if (this.ctx && this.values && this.canvas) {
+            const rounded_scale = this.zoom_args
+                ? Math.round(this.current_zoom / this.zoom_args!.zoom_increments)
+                    * this.zoom_args!.zoom_increments
+                : 1
+
             this.ctx.reset()
             this.ctx.translate(this.pan_x, this.pan_y)
-            this.ctx.scale(this.current_zoom, this.current_zoom)
+            this.ctx.scale(rounded_scale, rounded_scale)
             this.render(this.ctx, this.values, this.canvas)
         }
     }
@@ -181,6 +187,7 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
      * @param args.min_zoom The minimum zoom level (default: 0.5x)
      * @param args.max_zoom The maximum zoom level (default: 2x)
      * @param args.zoom_speed The speed of zooming (default: 0.05)
+     * @param args.zoom_increments The increments to round to when displaying (default: 0.1)
      *
      * @param preserve
      * If the prompt is already built and this isn't set to `true`, zeroes out the current pan and
@@ -198,7 +205,8 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
         this.zoom_args = {
             min_zoom: args.min_zoom ?? 0.5,
             max_zoom: args.max_zoom ?? 2,
-            zoom_speed: args.zoom_speed ?? 0.05
+            zoom_speed: args.zoom_speed ?? 0.05,
+            zoom_increments: args.zoom_increments ?? 0.1
         }
         return this
     }
@@ -244,17 +252,24 @@ export function draw_pixmap(
     offset_x: number = 0,
     offset_y: number = 0
 ) {
-    for (let y = 0; y < pixmap.length; y++) {
-        for (let x = 0; x < pixmap[y].length; x++) {
-            if (!pixmap[y][x]) continue
+    const height  = pixmap[0].length
+    const width = pixmap.length
 
-            ctx.fillStyle = pixmap[y][x]!.color
-            ctx.fillRect(
-                y * pixel_size + offset_x,
-                x * pixel_size + offset_y,
-                pixel_size,
-                pixel_size
-            )
+    console.log(width, width)
+
+    const canvas = new OffscreenCanvas(width, height)
+    const local_ctx = canvas.getContext("2d")!
+
+    ctx.imageSmoothingEnabled = false
+
+    for (let y = 0; y < height; y++) {
+        for (let x = 0; x < width; x++) {
+            if (!pixmap[x][y]) continue
+
+            local_ctx.fillStyle = pixmap[x][y]!.color
+            local_ctx.fillRect(x, y, 1, 1)
         }
     }
+
+    ctx.drawImage(canvas, offset_x, offset_y, width * pixel_size, height * pixel_size)
 }
