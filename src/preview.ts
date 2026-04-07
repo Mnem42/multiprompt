@@ -158,7 +158,7 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
     }
 
     subscriber(v: Map<K, unknown>): void {
-        this.values ??= v
+        this.values = v
 
         if (this.ctx !== null && this.canvas !== null) this.redraw()
     }
