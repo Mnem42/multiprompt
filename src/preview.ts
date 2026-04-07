@@ -42,6 +42,7 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
     width: number = 300
     height: number = 150
     zoom_args: ZoomArgs | null = null
+    update_on_tick: boolean = false
 
     ctx: CanvasRenderingContext2D | null = null
     canvas: HTMLCanvasElement | null = null
@@ -65,6 +66,10 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
         // So that this won't ever get changed by accident or deliberately, because that
         // assumption makes it a bit more convenient to code some other bits of code.
         Object.freeze(this.zoom_args)
+
+        if (this.update_on_tick) {
+            runEveryTick(this.redraw.bind(this))
+        }
 
         const container = document.createElement("div")
         container.classList.add("mp_preview_container")
@@ -208,5 +213,47 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
     set_rendering(mode: typeof this.image_rendering): this {
         this.image_rendering = mode
         return this
+    }
+
+    /**
+     * Sets whether to trigger a redraw every game tick or not. Does nothing if run after the
+     * canvas is built.
+     *
+     * @param mode The value to set to
+     */
+    redraw_on_tick(mode: boolean): this {
+        this.update_on_tick = mode
+        return this
+    }
+}
+
+/**
+ * Helper function to draw to a pixelmap. Does not call {@link CanvasRenderingContext2D.fill}
+ *
+ * @param ctx        The context ot draw to
+ * @param pixmap     The pixelmap to draw
+ * @param pixel_size The size per pixel
+ * @param offset_x   The X offset to draw at
+ * @param offset_y   The Y offset to draw at
+ */
+export function draw_pixmap(
+    ctx: CanvasRenderingContext2D,
+    pixmap: (Pixel | null)[][],
+    pixel_size: number = 1,
+    offset_x: number = 0,
+    offset_y: number = 0
+) {
+    for (let y = 0; y < pixmap.length; y++) {
+        for (let x = 0; x < pixmap[y].length; x++) {
+            if (!pixmap[y][x]) continue
+
+            ctx.fillStyle = pixmap[y][x]!.color
+            ctx.fillRect(
+                y * pixel_size + offset_x,
+                x * pixel_size + offset_y,
+                pixel_size,
+                pixel_size
+            )
+        }
     }
 }
