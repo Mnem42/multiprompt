@@ -36,22 +36,22 @@ export type ZoomArgs = {
 export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<void, K> {
     readonly render: RenderCallback<K>
 
-    built: boolean = false
+    private built: boolean = false
 
-    image_rendering: "auto" | "smooth" | "high-quality" | "crisp-edges" | "pixelated" = "pixelated"
+    private image_rendering: "auto" | "smooth" | "high-quality" | "crisp-edges" | "pixelated" = "pixelated"
 
-    width: number = 300
-    height: number = 150
-    zoom_args: ZoomArgs | null = null
+    private width: number = 300
+    private height: number = 150
+    private zoom_args: ZoomArgs | null = null
     #redraw_on_tick: boolean = false
 
-    ctx: CanvasRenderingContext2D | null = null
-    canvas: HTMLCanvasElement | null = null
-    values: Map<K, unknown> | null = null
+    private ctx: CanvasRenderingContext2D | null = null
+    private canvas: HTMLCanvasElement | null = null
+    private values: Map<K, unknown> | null = null
 
-    pan_x: number = 0
-    pan_y: number = 0
-    current_zoom: number = 1
+    private pan_x: number = 0
+    private pan_y: number = 0
+    private current_zoom: number = 1
 
     /**
      * Constructs a preview
