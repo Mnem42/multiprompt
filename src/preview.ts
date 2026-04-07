@@ -145,8 +145,14 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
                 : 1
 
             this.ctx.reset()
+
             this.ctx.translate(this.pan_x, this.pan_y)
             this.ctx.scale(rounded_scale, rounded_scale)
+
+            this.ctx.beginPath()
+            this.ctx.rect(0, 0, this.width, this.height)
+            this.ctx.clip()
+
             this.render(this.ctx, this.values, this.canvas)
         }
     }
