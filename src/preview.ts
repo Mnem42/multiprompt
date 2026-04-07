@@ -42,7 +42,7 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
     width: number = 300
     height: number = 150
     zoom_args: ZoomArgs | null = null
-    update_on_tick: boolean = false
+    #redraw_on_tick: boolean = false
 
     ctx: CanvasRenderingContext2D | null = null
     canvas: HTMLCanvasElement | null = null
@@ -66,8 +66,9 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
         // So that this won't ever get changed by accident or deliberately, because that
         // assumption makes it a bit more convenient to code some other bits of code.
         Object.freeze(this.zoom_args)
+        Object.freeze(this.#redraw_on_tick)
 
-        if (this.update_on_tick) {
+        if (this.#redraw_on_tick) {
             runEveryTick(this.redraw.bind(this))
         }
 
@@ -222,7 +223,7 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
      * @param mode The value to set to
      */
     redraw_on_tick(mode: boolean): this {
-        this.update_on_tick = mode
+        this.#redraw_on_tick = mode
         return this
     }
 }
