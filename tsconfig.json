@@ -10,5 +10,6 @@
     "allowUnusedLabels": true,
     "declaration": true
   },
-  "include": [ "src/*", "types/*.d.ts", "src/**/*"]
+  "include": [ "src/*", "types/*.d.ts", "src/**/*" ],
+  "exclude": [ "src/tester.ts" ]
 }
