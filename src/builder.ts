@@ -36,7 +36,7 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
     /**
      * The height for the prompt in %
      *
-     * @see PromptBuilder.with_height
+     * @see {@link PromptBuilder.with_height}
      */
     height: number = 60
 
@@ -69,7 +69,7 @@ export class PromptBuilder<K extends PropertyKey | never = never> {
      *
      * Subscribers are callbacks that are run every time an input changes.
      *
-     * @see Subscriber
+     * @see {@link Subscriber}
      * @param subscriber
      */
     add_subscriber(subscriber: Subscriber<K>): PromptBuilder<K> {

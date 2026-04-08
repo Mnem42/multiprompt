@@ -8,7 +8,7 @@ import {ControlWithSubscriber} from "./core"
 /**
  * A callback that can be used for rendering a {@link CanvasPreview}
  *
- * @see CanvasPreview.constructor
+ * @see {@link CanvasPreview.constructor}
  */
 export type RenderCallback<K> = (
     ctx: CanvasRenderingContext2D,
@@ -19,7 +19,7 @@ export type RenderCallback<K> = (
 /**
  * Arguments for setting a {@link CanvasPreview}'s zooming and panning behaviour.
  *
- * @see CanvasPreview.with_zoom
+ * @see {@link CanvasPreview.with_zoom}
  */
 export type ZoomArgs = {
     min_zoom: number;
@@ -134,8 +134,8 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
      * 3. Scale the canvas based on zoom
      * 4. Runs the user provided callback
      *
-     * @see CanvasPreview.render
-     * @see RenderCallback
+     * @see {@link CanvasPreview.render}
+     * @see {@link RenderCallback}
      */
     private redraw() {
         if (this.ctx && this.values && this.canvas) {
@@ -171,8 +171,8 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
      * @param width The new width
      * @param height The new height
      *
-     * @see HTMLCanvasElement.width
-     * @see HTMLCanvasElement.height
+     * @see {@link HTMLCanvasElement.width}
+     * @see {@link HTMLCanvasElement.height}
      */
     with_resolution(width: number, height: number): this {
         this.width = width
@@ -199,7 +199,7 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
      * If the prompt is already built and this isn't set to `true`, zeroes out the current pan and
      * zoom numbers.
      *
-     * @see ZoomArgs
+     * @see {@link ZoomArgs}
      */
     with_zoom(args: Partial<ZoomArgs> = {}, preserve: boolean = false): this {
         if (this.built && !preserve) {
@@ -223,7 +223,7 @@ export class CanvasPreview<K extends PropertyKey> extends ControlWithSubscriber<
      *
      * @param mode The mode to switch to
      *
-     * @see CSSStyleDeclaration.imageRendering
+     * @see {@link CSSStyleDeclaration.imageRendering}
      */
     set_rendering(mode: typeof this.image_rendering): this {
         this.image_rendering = mode

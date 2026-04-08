@@ -22,8 +22,8 @@ export type Subscriber<K extends PropertyKey> = (v: Map<K, unknown>) => void;
  * An input which can be put into a {@link Prompt}.
  *
  * @typeParam T The type the input's value has
- * @see InputArgs
- * @see InputOptArgs
+ * @see {@link InputArgs}
+ * @see {@link InputOptArgs}
  */
 export abstract class Input<T> {
     /** The label displayed next to the input */
@@ -56,8 +56,8 @@ export abstract class Input<T> {
  * An {@link Input} with arguments that are always required.
  *
  * @typeParam T The type the input's value has
- * @see Input
- * @see InputOptArgs
+ * @see {@link Input}
+ * @see {@link InputOptArgs}
  */
 export abstract class InputArgs<T, A> extends Input<T> {
     readonly args: A
@@ -72,8 +72,8 @@ export abstract class InputArgs<T, A> extends Input<T> {
  * An {@link Input} where the arguments are an object with *only* optional values.
  *
  * @typeParam T The type the input's value has
- * @see Input
- * @see InputArgs
+ * @see {@link Input}
+ * @see {@link InputArgs}
  */
 export abstract class InputOptArgs<T, A extends (IsPartial<A> extends true ? object : never)> extends Input<T> {
     readonly args: A
@@ -104,7 +104,7 @@ export abstract class Control<A> {
  *
  * @typeParam A The arguments for the control
  * @typeParam K The property keys for the prompt values
- * @see Control
+ * @see {@link Control}
  */
 export abstract class ControlWithSubscriber<A, K extends PropertyKey> extends Control<A> {
     /**
