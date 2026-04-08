@@ -10,7 +10,7 @@
   },
   "scripts": {
     "build": "node build.mjs",
-    "gen_decl": "tsc --emitDeclarationOnly --outDir ./decl"
+    "gen_decl": "tsc --emitDeclarationOnly --outFile ./decl/multiprompt.d.ts"
   },
   "name": "multiprompt",
   "main": "src/main.ts"
