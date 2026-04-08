@@ -110,7 +110,7 @@ export declare class CanvasPreview<K extends PropertyKey> extends ControlWithSub
  * Helper function to draw to a pixelmap. Does not call {@link CanvasRenderingContext2D.fill}.
  *
  * @remarks
- * This sets {CanvasRenderingContext2D.imageSmoothingEnabled} to `false` on {@link ctx} to
+ * This sets {CanvasRenderingContext2D.imageSmoothingEnabled} to `false` on `ctx` to
  * prevent blurriness when drawing the temporary canvas onto it, turn it back on externally if
  * needed.
  *
