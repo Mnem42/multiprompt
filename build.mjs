@@ -16,13 +16,14 @@ await esbuild.build({
     logLevel: "error",
     bundle: true,
 
+    globalName: "mp",
+
     loader: {
         // Force .html, .svg, and .css to load as text
         ".html": "text",
         ".css": "text",
         ".svg": "text"
     },
-
     banner: {
         js: `// ${MOD_NAME}.js`
     },

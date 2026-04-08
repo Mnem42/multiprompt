@@ -1,20 +1,14 @@
 import { Mod } from "./mod"
+import { PromptBuilder } from "./builder"
 
 export * as core from "./core"
 export * as builder from "./builder"
 export * as controls from "./controls"
 export * as preview from "./preview"
 
-declare global {
-    /** The mod's global state */
-    let multiprompt: Mod
-
-    interface Window {
-        /** The mod's global state */
-        multiprompt: Mod
-    }
-}
+export let new_builder: (title: string) => PromptBuilder;
 
 runAfterLoad(() => {
-    window.multiprompt = new Mod()
+    const manager = new Mod()
+    new_builder = manager.new_builder;
 })
