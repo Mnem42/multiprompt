@@ -7,7 +7,10 @@ import { ControlOrInput } from "./controls";
 import { Control, ControlWithSubscriber, Input, Prompt, Subscriber } from "./core";
 /**
  * A builder for a {@link Prompt}. This is the much nicer API compared to directly constructing
- * {@link Prompt}, but the intended way to get one of these is to use {@link Mod.new_builder}
+ * {@link Prompt}.
+ *
+ * If you want to place the prompt into the "normal" place, use {@link main.new_builder} because it
+ * provides that for you.
  *
  * @example
  * ```ts
